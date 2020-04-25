@@ -1,0 +1,14 @@
+logging:
+  level:
+    root: INFO
+spring:
+  application:
+    name: ModuleA-{shared1^shared2}
+  cloud:
+    config:
+      uri: http://localhost:8888
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

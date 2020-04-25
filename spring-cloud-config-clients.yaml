@@ -1,0 +1,67 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: configclienta
+spec:
+  selector:
+    app: configclienta
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configclienta
+spec:
+  selector:
+      matchLabels:
+        app: configclienta
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: configclienta
+    spec:
+      containers:
+        - name: configclienta
+          image: mhdevacr.azurecr.io/configclienta:v7
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: configclientb
+spec:
+  selector:
+    app: configclientb
+  ports:
+    - protocol: TCP
+      port: 8090
+      targetPort: 8090
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configclientb
+spec:
+  selector:
+    matchLabels:
+      app: configclientb
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: configclientb
+    spec:
+      containers:
+        - name: configclientb
+          image: mhdevacr.azurecr.io/configclientb:v7
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8090

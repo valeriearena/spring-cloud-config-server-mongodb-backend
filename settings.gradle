@@ -1,0 +1,10 @@
+rootProject.name = 'spring-cloud-config-poc'
+
+include ':configClientA'
+project(':configClientA').projectDir = new File('configClientA')
+
+include ':configClientB'
+project(':configClientB').projectDir = new File('configClientB')
+
+include ':configServer'
+project(':configServer').projectDir = new File('configServer')

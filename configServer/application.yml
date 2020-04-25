@@ -1,0 +1,9 @@
+logging:
+  level:
+    root: INFO
+server:
+  port: 8888
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/config-db

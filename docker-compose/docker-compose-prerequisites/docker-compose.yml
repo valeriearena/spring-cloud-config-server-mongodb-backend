@@ -1,0 +1,25 @@
+version: '3'
+services:
+  activemq:
+    image: webcenter/activemq
+    container_name: activemq_container
+    ports:
+      - '8161:8161'
+      - '61616:61616'
+  mongodb:
+    image: 'mongo:latest'
+    container_name: mongodb_container
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - '/usr/local/mongodb/data/db:/data/db'
+    ports:
+      - '27017:27017'
+  configserver:
+    image: configserver
+    container_name: configserver_container
+    ports:
+      - '8888:8888'
+    env_file:
+      - '${HOME}/docker-compose.env'

@@ -40,6 +40,8 @@ public class MongoEnvironmentRepository implements EnvironmentRepository {
 	private static final String SETTINGS_TABLE = "settings";
 	private static final String MODULE_NAME = "moduleName";
 	private static final String SETTING_KEY = "key";
+	private static final String SYSTEM_MODULE_NAME = "system";
+
 	private MongoTemplate mongoTemplate;
 
 	public MongoEnvironmentRepository(MongoTemplate mongoTemplate) {
@@ -63,7 +65,7 @@ public class MongoEnvironmentRepository implements EnvironmentRepository {
 			List<String> sharedSettingNameList = new ArrayList<String>(Arrays.asList(sharedSettingNameArray));
 
 			Query sharedSettingsQuery = new Query();
-			sharedSettingsQuery.addCriteria(Criteria.where(MODULE_NAME).is("System"));
+			sharedSettingsQuery.addCriteria(Criteria.where(MODULE_NAME).is(SYSTEM_MODULE_NAME));
 			sharedSettingsQuery.addCriteria(Criteria.where(SETTING_KEY).in(sharedSettingNameList.toArray()));
 			List<MongoDocument> sharedSettingList = mongoTemplate.find(sharedSettingsQuery, MongoDocument.class, SETTINGS_TABLE);
 			settingList.addAll(sharedSettingList);

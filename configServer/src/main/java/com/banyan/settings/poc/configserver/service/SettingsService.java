@@ -1,12 +1,12 @@
 package com.banyan.settings.poc.configserver.service;
 
-import com.banyan.settings.poc.configserver.jms.TopicProducer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.config.server.mongodb.environment.MongoDocument;
 import org.springframework.cloud.config.server.mongodb.environment.MongoEnvironmentRepository;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class SettingsService {
 
@@ -14,16 +14,14 @@ public class SettingsService {
     private MongoEnvironmentRepository mongoEnvironmentRepository;
 
     @Autowired
-    private TopicProducer topicProducer;
-
-    @Autowired
-    private DiscoveryClient discoveryClient;
+    private RefreshService refreshService;
 
     public MongoDocument updateSetting(MongoDocument mongoDocument){
-
         MongoDocument document = mongoEnvironmentRepository.updateSetting(mongoDocument);
-        topicProducer.notifyModuleAToRefreshSystemSettings(mongoDocument.getModuleName());
+        refreshService.notifyModuleAToRefreshSystemSettings(mongoDocument);
+        log.info("Updated setting. key={}, value={}", mongoDocument.getKey(), mongoDocument.getValue());
         return document;
-
     }
+
+
 }

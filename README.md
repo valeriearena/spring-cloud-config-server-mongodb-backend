@@ -4,7 +4,7 @@ Spring cloud app that integrates with MongoDB.
 
 
 http://localhost:8888/ModuleA/prod
-http://localhost:8888/ModuleA-{shared1^shared2}/prod
+http://localhost:8888/ModuleA-{shared1^shared2}/default
 
 curl -X POST http://localhost:8080/actuator/refresh
 curl -X POST http://localhost:8090/actuator/refresh
@@ -12,21 +12,21 @@ curl -X POST http://localhost:8090/actuator/refresh
 http://localhost:8080/modulea
 http://localhost:8090/moduleb
 
-curl -v -X PATCH http://localhost:8888/settings -H "Content-Type: application/json" -d '{"moduleName":"System","key":"shared1","value":"System shared1","settingLabel":"Shared Setting 1","description":"This is shared setting #1.","type":"java.lang.String","order":1}'
+curl -v -X PATCH http://localhost:8888/settings -H "Content-Type: application/json" -d '{"moduleName":"system","key":"shared1","value":"System shared1","settingLabel":"Shared Setting 1","description":"This is shared setting #1.","type":"java.lang.String","order":1}'
 
-curl -v -X PATCH http://localhost:8888/settings -H "Content-Type: application/json" -d '{"moduleName": "ModuleA","key":"setting1","value":"Module A Updated setting1","settingLabel":"Module A Setting 1","description":"This is Module A setting #1.","type":"java.lang.String","order":1}'
+curl -v -X PATCH http://localhost:8888/settings -H "Content-Type: application/json" -d '{"moduleName": "configclienta","key":"setting1","value":"Module A Updated setting1","settingLabel":"Module A Setting 1","description":"This is Module A setting #1.","type":"java.lang.String","order":1}'
 
-curl -v -X PATCH http://localhost:8888/settings -H "Content-Type: application/json" -d '{"moduleName": "ModuleB","key":"setting1","value":"Module B Updated setting1","settingLabel":"Module B Setting 1","description":"This is Module B setting #1.","type":"java.lang.String","order":1}'
+curl -v -X PATCH http://localhost:8888/settings -H "Content-Type: application/json" -d '{"moduleName": "configclientb","key":"setting1","value":"Module B Updated setting1","settingLabel":"Module B Setting 1","description":"This is Module B setting #1.","type":"java.lang.String","order":1}'
 ____________________________________
 
-db.settings.insertOne({"moduleName":"System","key":"shared1","value":"System shared1","settingLabel":"Shared Setting 1","description":"This is shared setting #1.","type":"java.lang.String","order":1,"status":0})
-db.settings.insertOne({"moduleName":"System","key":"shared2","value":"System shared2","settingLabel":"Shared Setting 2","description":"This is shared setting #2.","type":"java.lang.String","order":2,"status":0})
+db.settings.insertOne({"moduleName":"system","key":"shared1","value":"System shared1","settingLabel":"Shared Setting 1","description":"This is shared setting #1.","type":"java.lang.String","order":1,"status":0})
+db.settings.insertOne({"moduleName":"system","key":"shared2","value":"System shared2","settingLabel":"Shared Setting 2","description":"This is shared setting #2.","type":"java.lang.String","order":2,"status":0})
 
-db.settings.insertOne({"moduleName": "ModuleA","key":"setting1","value":"Module A setting1","settingLabel":"Module A Setting 1","description":"This is Module A setting #1.","type":"java.lang.String","order":1,"status":0})
-db.settings.insertOne({"moduleName": "ModuleA","key":"setting2","value":"Module A setting2","settingLabel":"Module A Setting 2","description":"This is Module A setting #2.","type":"java.lang.String","order":2,"status":0})
+db.settings.insertOne({"moduleName": "configclienta","key":"setting1","value":"Module A setting1","settingLabel":"Module A Setting 1","description":"This is Module A setting #1.","type":"java.lang.String","order":1,"status":0})
+db.settings.insertOne({"moduleName": "configclienta","key":"setting2","value":"Module A setting2","settingLabel":"Module A Setting 2","description":"This is Module A setting #2.","type":"java.lang.String","order":2,"status":0})
 
-db.settings.insertOne({"moduleName": "ModuleB","key":"setting1","value":"Module B setting1","settingLabel":"Module B Setting 1","description":"This is Module B setting #1.","type":"java.lang.String","order":1,"status":0})
-db.settings.insertOne({"moduleName": "ModuleB","key":"setting2","value":"Module B setting2","settingLabel":"Module B Setting 2","description":"This is Module B setting #2.","type":"java.lang.String","order":2,"status":0})
+db.settings.insertOne({"moduleName": "configclientb","key":"setting1","value":"Module B setting1","settingLabel":"Module B Setting 1","description":"This is Module B setting #1.","type":"java.lang.String","order":1,"status":0})
+db.settings.insertOne({"moduleName": "configclientb","key":"setting2","value":"Module B setting2","settingLabel":"Module B Setting 2","description":"This is Module B setting #2.","type":"java.lang.String","order":2,"status":0})
 ____________________________________
 
 db.settings.find()
@@ -35,11 +35,11 @@ ____________________________________
 db.settings.update({"moduleName" : "System", "key": "shared1"},{$set:{"value":"System Shared Setting 1","status":0}});
 db.settings.update({"moduleName" : "System", "key": "shared2"},{$set:{"value":"System Shared Setting 2","status":0}});
 
-db.settings.update({"moduleName" : "ModuleA", "key": "setting1"},{$set:{"value":"Module A Setting 1","status":0}});
-db.settings.update({"moduleName" : "ModuleA", "key": "setting2"},{$set:{"value":"Module A Setting 2","status":0}});
+db.settings.update({"moduleName" : "configclienta", "key": "setting1"},{$set:{"value":"Module A Setting 1","status":0}});
+db.settings.update({"moduleName" : "configclienta", "key": "setting2"},{$set:{"value":"Module A Setting 2","status":0}});
 
-db.settings.update({"moduleName" : "ModuleB", "key": "setting1"},{$set:{"value":"Module B Setting 1","status":0}});
-db.settings.update({"moduleName" : "ModuleB", "key": "setting2"},{$set:{"value":"Module B Setting 2","status":0}});
+db.settings.update({"moduleName" : "configclientb", "key": "setting1"},{$set:{"value":"Module B Setting 1","status":0}});
+db.settings.update({"moduleName" : "configclientb", "key": "setting2"},{$set:{"value":"Module B Setting 2","status":0}});
 
 ____________________________________
 

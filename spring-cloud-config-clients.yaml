@@ -27,10 +27,13 @@ spec:
     spec:
       containers:
         - name: configclienta
-          image: mhdevacr.azurecr.io/configclienta:v7
+          image: mhdevacr.azurecr.io/configclienta:v17
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          env:
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: "http://configserver:8888"
 ---
 kind: Service
 apiVersion: v1
@@ -61,7 +64,10 @@ spec:
     spec:
       containers:
         - name: configclientb
-          image: mhdevacr.azurecr.io/configclientb:v7
+          image: mhdevacr.azurecr.io/configclientb:v17
           imagePullPolicy: Always
           ports:
             - containerPort: 8090
+          env:
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: "http://configserver:8888"

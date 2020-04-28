@@ -1,0 +1,16 @@
+version: '3'
+services:
+  configclienta:
+    image: configclienta
+    container_name: configclienta_container
+    ports:
+      - '8080:8080'
+    env_file:
+      - '${HOME}/docker-compose.env'
+  configclientb:
+    image: configclientb
+    container_name: configclientb_container
+    ports:
+      - '8090:8090'
+    env_file:
+      - '${HOME}/docker-compose.env'
